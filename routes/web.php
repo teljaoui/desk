@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DeskController;
+use App\Http\Middleware\Authmidlleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-Route::view('/ajouter' , 'Ajouter');
-Route::view('/updatepassword' , 'updatepassword');
-Route::view('/details' , 'details');
+Route::view('/ajouter', 'Ajouter')->middleware([Authmidlleware::class]);
+Route::view('/updatepassword', 'updatepassword')->middleware([Authmidlleware::class]);
+Route::view('/details', 'details')->middleware([Authmidlleware::class]);
+
+
+Route::get('/login', [DeskController::class, 'login']);
+Route::post('/loginpost' , [DeskController::class, 'loginpost']);
+Route::get('/logout' , [DeskController::class , 'logout']);
+Route::post('/updatePost' , [DeskController::class , 'updatePost']);
+Route::get('/', [DeskController::class, 'index'])->middleware([Authmidlleware::class]);

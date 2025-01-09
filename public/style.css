@@ -19,7 +19,9 @@
     box-sizing: border-box;
     font-size: 92.5%;
 }
-
+.alert{
+    font-size: 15px;
+}
 header {
     background-color: #fff;
     top: 0;

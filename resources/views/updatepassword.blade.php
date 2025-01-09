@@ -28,7 +28,7 @@
                             {{ session('error') }}
                         </div>
                     @endif
-                    <form action="/admin/updatePost" method="POST">
+                    <form action="/updatePost" method="POST">
                         @csrf
                         <div class="item">
                             <div class="form-group">

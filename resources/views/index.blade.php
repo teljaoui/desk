@@ -16,18 +16,18 @@
     @include('header')
 
     <section class="admin my-5 py-5">
-        <div class="container my-5">
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @elseif(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
-        </div>
         <div class="container">
+            <div class="container my-5 w-75">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @elseif(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
             <div class="today">
                 <h6 class="title">Tout les clients</h6>
                 <div class="table-responsive dataview">
