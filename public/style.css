@@ -181,7 +181,7 @@ li {
     text-decoration: none;
 }
 
-.today p {
+.today p , .today li a{
     font-size: 18px;
     color: var(--color-1E3E62);
     font-weight: 550;

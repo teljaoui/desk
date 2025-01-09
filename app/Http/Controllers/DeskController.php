@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
@@ -65,7 +66,30 @@ class DeskController extends Controller
     }
     public function index()
     {
-        return view('index');
+        $clients = Client::all();
+        return view('index', compact('clients'));
     }
 
+    public function add(Request $request)
+    {
+        Client::create(
+            [
+                'name' => $request->name,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'phone_number' => $request->phone_number,
+                'type' => $request->type,
+                'location' => $request->location
+            ]
+        );
+        return redirect('/ajouter')->with('success', 'Client Ajouter avec succès !');
+
+    }
+
+    public function details($id)
+    {
+        $client = Client::find($id);
+
+        return view('details', compact('client'));
+    }
 }

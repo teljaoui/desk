@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/ajouter', 'Ajouter')->middleware([Authmidlleware::class]);
 Route::view('/updatepassword', 'updatepassword')->middleware([Authmidlleware::class]);
-Route::view('/details', 'details')->middleware([Authmidlleware::class]);
 
 
 Route::get('/login', [DeskController::class, 'login']);
@@ -25,3 +24,5 @@ Route::post('/loginpost' , [DeskController::class, 'loginpost']);
 Route::get('/logout' , [DeskController::class , 'logout']);
 Route::post('/updatePost' , [DeskController::class , 'updatePost']);
 Route::get('/', [DeskController::class, 'index'])->middleware([Authmidlleware::class]);
+Route::post('/add' , [DeskController::class , 'add']);
+Route::get('/details/{id}' , [DeskController::class , 'details'])->middleware([Authmidlleware::class]);

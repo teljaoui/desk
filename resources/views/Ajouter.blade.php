@@ -18,22 +18,33 @@
         <div class="container my-5">
             <div class="today">
                 <h6 class="title">Ajouter Client</h6>
-                <form action="adduser" method="POST">
+                <div>
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @elseif(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                </div>
+                <form action="add" method="POST">
                     @csrf
                     <div class="">
                         <div class="form-group">
                             <div class="row my-3">
                                 <div class="col-lg-12 col-md-12 col-sm-12 my-2">
                                     <label for="" class="form-label">Nom du Société: </label>
-                                    <input type="text" class="form-control" name="phone_number" required>
+                                    <input type="text" class="form-control" name="name" required>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 my-2">
                                     <label for="" class="form-label">Prénom: </label>
-                                    <input type="text" class="form-control" name="firstname" required>
+                                    <input type="text" class="form-control" name="first_name" required>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 my-2">
                                     <label for="" class="form-label">Nom: </label>
-                                    <input type="text" class="form-control" name="lastname" required>
+                                    <input type="text" class="form-control" name="last_name" required>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 my-2">
                                     <label for="" class="form-label">Téléphone: </label>
@@ -41,11 +52,11 @@
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 my-2">
                                     <label for="" class="form-label">Type du Société: </label>
-                                    <input type="text" class="form-control" name="phone_number" required>
+                                    <input type="text" class="form-control" name="type" required>
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 my-2">
                                     <label for="" class="form-label">Location: </label>
-                                    <input type="text" class="form-control" name="phone_number" required>
+                                    <input type="text" class="form-control" name="location" required>
                                 </div>
                             </div>
                         </div>

@@ -39,21 +39,21 @@
                                 <th>Nom</th>
                                 <th class="phonetable">Prénom</th>
                                 <th>Téléphone</th>
-                                <th  class="phonetable">Location</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>test</td>
-                                <td class="phonetable">test</td>
-                                <td>test</td>
-                                <td class="phonetable">test</td>
-                                <td>test</td>
-                                <td  class="phonetable">test</td>
-                                <td><a href="/admin/reservation/"
-                                    class="btn btn-info border-0 fw-bold text-white">Détails</a></td>
-                            </tr>
+                            @foreach ($clients as $client)
+                                <tr>
+                                    <td>{{$client->name}}</td>
+                                    <td class="phonetable">{{$client->type}}</td>
+                                    <td>{{$client->last_name}}</td>
+                                    <td class="phonetable">{{$client->first_name}}</td>
+                                    <td>{{$client->phone_number}}</td>
+                                    <td><a href="details/{{$client->id}}"
+                                        class="btn btn-info border-0 fw-bold text-white">Détails</a></td>
+                                </tr>
+                            @endforeach
                         </tbody>
 
                     </table>

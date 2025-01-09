@@ -23,37 +23,37 @@
                         <div>
                             <li>
                                 <span>Nom du Société:</span>
-                                <p>test</p>
+                                <p>{{$client->name}}</p>
                             </li>
                             <li>
                                 <span>
                                     Type du Société:</span>
-                                <p>test</p>
+                                <p>{{$client->type}}</p>
                             </li>
                             <li>
                                 <span>Prénom:</span>
-                                <p>test</p>
+                                <p>{{$client->first_name}}</p>
                             </li>
                         </div>
                         <div>
                             <li>
                                 <span>Nom:</span>
-                                <p>test</p>
+                                <p>{{$client->last_name}}</p>
                             </li>
                             <li>
                                 <span>Numéro de Téléphone:</span>
-                                <p>test</p>
+                                <p><a href="tel:{{$client->phone_number}}">{{$client->phone_number}}</a></p>
                             </li>
                             <li>
-                                <span>Location:</span>
-                                <p>test</p>
+                                <span>Statu:</span>
+                                <p>Traité</p>
                             </li>
                         </div>
                     </ul>
                 </div>
                 <div class="my-2">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6620.744101685682!2d-6.901402156471231!3d33.931557792810224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda712ec65afdded%3A0x3871ebdf79f7155a!2sMassira%20I%2C%20T%C3%A9mara!5e0!3m2!1sfr!2sma!4v1736249026622!5m2!1sfr!2sma"
+                        src="{{$client->location}}"
                         width="100%" height="200" style="border:0; margin-top:20px;" allowfullscreen=""
                         loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
