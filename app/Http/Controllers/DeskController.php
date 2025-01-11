@@ -146,5 +146,24 @@ class DeskController extends Controller
         }
     }
 
+    public function updateinfoclient(Request $request)
+    {
+        $client = Client::find($request->client_id);
+
+        if ($client) {
+            $client->update(
+                [
+                    'name' => $request->name,
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'phone_number' => $request->phone_number,
+                    'type' => $request->type,
+                ]
+            );
+            return redirect('/details' . '/' . $request->client_id)->with('success', 'Client Modifié avec succès !');
+        } else {
+            return redirect('/details' . '/' . $request->client_id)->with('error', 'Error, client ne trouve pas!');
+        }
+    }
 
 }

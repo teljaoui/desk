@@ -3,3 +3,20 @@ document.querySelector('.refus').addEventListener("click", function (event) {
         event.preventDefault();
     }
 });
+
+function showform() {
+    document.querySelectorAll('.showform').forEach((element) => {
+        element.style.display = 'block';
+        document.querySelectorAll('.hiddenform').forEach((e)=>{
+            e.style.display = 'none'
+        })
+    });
+}
+function hiddenform() {
+    document.querySelectorAll('.hiddenform').forEach((element) => {
+        element.style.display = 'block';
+        document.querySelectorAll('.showform').forEach((e)=>{
+            e.style.display = 'none'
+        })
+    });
+}

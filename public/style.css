@@ -69,6 +69,7 @@ header {
 
 li {
     list-style: none;
+    margin-bottom: 10px ;
 }
 
 .header-admin a {
@@ -197,7 +198,7 @@ li {
     display: flex;
 }
 
-.today ul div {
+.today ul  div {
     width: 50%;
 }
 
@@ -241,7 +242,9 @@ li {
     align-items: center;
 }
 
-
+.showform{
+    display: none;
+}
 @media (max-width:770px) {}
 
 @media (max-width:641px) {

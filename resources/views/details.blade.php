@@ -31,36 +31,74 @@
                 </div>
                 <div>
                     <ul>
-                        <div>
-                            <li>
-                                <span>Nom du Société:</span>
-                                <p>{{ $client->name }}</p>
-                            </li>
-                            <li>
-                                <span>Prénom:</span>
-                                <p>{{ $client->first_name }}</p>
-                            </li>
-                            <li>
-                                <span>Nom:</span>
-                                <p>{{ $client->last_name }}</p>
-                            </li>
-                        </div>
-                        <div>
-                            <li>
-                                <span>
-                                    Type du Société:</span>
-                                <p>{{ $client->type }}</p>
-                            </li>
-                            <li>
-                                <span>Numéro de Téléphone:</span>
-                                <p><a href="tel:{{ $client->phone_number }}">{{ $client->phone_number }}</a></p>
-                            </li>
-                            <li>
-                                <span>État:</span>
-                                <p>{{ $client->statut }}</p>
-                            </li>
-                        </div>
+                        <button class="btn btn-success hiddenform" onclick="showform()"><i
+                                class="fa-solid fa-user-pen"></i></button>
+                        <button class="btn btn-warning showform" onclick="hiddenform()"><i
+                                class="fa-solid fa-circle-xmark"></i></button>
                     </ul>
+                    <form action="{{ route('updateinfoclient') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="client_id" value="{{ $client->id }}">
+                        <ul>
+                            <div>
+                                <li>
+                                    <span>Nom du Société:</span>
+                                    <div>
+                                        <p class="hiddenform">{{ $client->name }}</p>
+                                        <input type="text" class="form-control showform" name="name"
+                                            value="{{ $client->name }}" required>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>Prénom:</span>
+                                    <div>
+                                        <p class="hiddenform">{{ $client->first_name }}</p>
+                                        <input type="text" class="form-control showform" name="first_name"
+                                            value="{{ $client->first_name }}" required>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>Nom:</span>
+                                    <div>
+                                        <p class="hiddenform">{{ $client->last_name }}</p>
+                                        <input type="text" class="form-control showform" name="last_name"
+                                            value="{{ $client->last_name }}" required>
+
+                                    </div>
+                                </li>
+                            </div>
+                            <div>
+                                <li>
+                                    <span>
+                                        Type du Société:</span>
+                                    <div>
+                                        <p class="hiddenform">{{ $client->type }}</p>
+                                        <input type="text" class="form-control showform" name="type"
+                                            value="{{ $client->type }}" required>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>Numéro de Téléphone:</span>
+                                    <div>
+                                        <p class="hiddenform"><a
+                                                href="tel:{{ $client->phone_number }}">{{ $client->phone_number }}</a>
+                                        </p>
+                                        <input type="text" class="form-control showform" name="phone_number"
+                                            value="{{ $client->phone_number }}" required>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>État:</span>
+                                    <div>
+                                        <p>{{ $client->statut }}</p>
+                                    </div>
+                                </li>
+                            </div>
+                        </ul>
+                        <div>
+                            <button type="submit" class="btn btn-success w-50 mx-auto showform">Update</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="my-2">
                     <iframe src="{{ $client->location }}" width="100%" height="200"
@@ -93,7 +131,7 @@
                             <div class="d-flex justify-content-center my-3">
                                 <input type="hidden" name="client_id" value="{{ $client->id }}">
                                 <input type="submit" value="Ajouter" class="submit">
-                                <a href="/refuspost/{{$client->id}}" class="submit bg-danger refus">Refusé</a>
+                                <a href="/refuspost/{{ $client->id }}" class="submit bg-danger refus">Refusé</a>
                             </div>
                         </form>
                     </div>
