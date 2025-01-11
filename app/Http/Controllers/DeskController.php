@@ -181,8 +181,9 @@ class DeskController extends Controller
             return redirect('/details' . '/' . $request->client_id)->with('success', 'Error');
         }
     }
-    public function appointments(){
-        $appointments = Appointment::all();
-        return view('appointments' , compact('appointments'));
+    public function appointments()
+    {
+        $appointments = Appointment::with("client")->orderBy("date")->get();
+        return view('appointments', compact('appointments'));
     }
 }
