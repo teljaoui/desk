@@ -15,7 +15,8 @@ class Client extends Model
         'last_name',
         'phone_number',
         'type',
-        'location'
+        'location',
+        'statut'
     ];
     public function Appointment(){
         return  $this->hasMany(Appointment::class);

@@ -91,7 +91,8 @@ li {
 
 
 .admin input,
-.admin select {
+.admin select ,
+.admin textarea {
     outline: none;
     box-shadow: none;
     box-sizing: none;
@@ -100,7 +101,8 @@ li {
 }
 
 .admin input:focus,
-.admin select:focus {
+.admin select:focus,
+.admin textarea:focus {
     box-shadow: none;
     border: 1px solid var(--color-FF6500);
 
@@ -265,14 +267,14 @@ li {
     }
 
     .today ul {
-        display: block;
+        display: block !important;
     }
-
+    .today ul div li{
+        display: block !important;
+    }
     .today ul div {
         width: 100%;
     }
-
-
 }
 
 @media (max-width:450px) {}

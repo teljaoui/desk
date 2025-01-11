@@ -19,6 +19,17 @@
             <div class="today">
                 <h6 class="title">Détails du Client</h6>
                 <div>
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @elseif(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                </div>
+                <div>
                     <ul>
                         <div>
                             <li>
@@ -26,19 +37,19 @@
                                 <p>{{ $client->name }}</p>
                             </li>
                             <li>
-                                <span>
-                                    Type du Société:</span>
-                                <p>{{ $client->type }}</p>
-                            </li>
-                            <li>
                                 <span>Prénom:</span>
                                 <p>{{ $client->first_name }}</p>
+                            </li>
+                            <li>
+                                <span>Nom:</span>
+                                <p>{{ $client->last_name }}</p>
                             </li>
                         </div>
                         <div>
                             <li>
-                                <span>Nom:</span>
-                                <p>{{ $client->last_name }}</p>
+                                <span>
+                                    Type du Société:</span>
+                                <p>{{ $client->type }}</p>
                             </li>
                             <li>
                                 <span>Numéro de Téléphone:</span>
@@ -59,24 +70,30 @@
                 @if ($client->statut == 'Non Traité')
                     <div class="rendez-vous my-3" id="rendez-vous">
                         <h6 class="title">Rendez-vous</h6>
-                        <form action="/admin/updatePost" method="POST">
+                        <form action="/appointmentspost" method="POST">
                             @csrf
                             <div class="item">
                                 <div class="form-group">
                                     <label for="">Selectioné une date:</label>
-                                    <input type="date" name="password" class="form-control" id="" required>
+                                    <input type="date" name="date" class="form-control" id="" required>
                                 </div>
                             </div>
                             <div class="item">
                                 <div class="form-group">
                                     <label for="">Selectioné une heure:</label>
-                                    <input type="time" name="password_confirme" class="form-control" id=""
-                                        required>
+                                    <input type="time" name="time" class="form-control" id="" required>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="form-group">
+                                    <label for="">Commentaire</label>
+                                    <textarea name="Commentaire" id="" cols="30" rows="5" class="form-control"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center my-3">
+                                <input type="hidden" name="client_id" value="{{ $client->id }}">
                                 <input type="submit" value="Ajouter" class="submit">
-                                <a href="" class="submit bg-danger">Refusé</a>
+                                <a href="/refuspost/{{$client->id}}" class="submit bg-danger refus">Refusé</a>
                             </div>
                         </form>
                     </div>

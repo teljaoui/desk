@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use App\Models\Client;
 use App\Models\User;
 use Hash;
@@ -74,7 +75,8 @@ class DeskController extends Controller
         $clients = Client::where("statut", "=", "confirmé")->get();
         return view("index", compact("clients"));
     }
-    public function refusé(){
+    public function refusé()
+    {
         $clients = Client::where("statut", "=", "refusé")->get();
         return view("index", compact("clients"));
     }
@@ -101,4 +103,48 @@ class DeskController extends Controller
 
         return view('details', compact('client'));
     }
+
+
+    public function refuspost($id)
+    {
+        $client = Client::find($id);
+
+        if ($client) {
+            $client->update(
+                [
+                    'statut' => 'refusé'
+                ]
+            );
+            return redirect('/details' . '/' . $id)->with('success', 'Client Modifié Statut avec succès !');
+        } else {
+            return redirect('/details' . '/' . $id)->with('error', 'Error, client ne trouve pas!');
+        }
+    }
+    public function appointmentspost(Request $request)
+    {
+        $client = Client::find($request->client_id);
+
+        if (!$client) {
+            return redirect('/details/' . $request->client_id)->with('error', 'Client introuvable.');
+        }
+
+        try {
+            Appointment::create([
+                'date' => $request->date,
+                'time' => $request->time,
+                'client_id' => $request->client_id,
+                'Commentaire' => $request->Commentaire
+            ]);
+
+            $client->update([
+                'statut' => 'confirmé'
+            ]);
+
+            return redirect('/details/' . $request->client_id)->with('success', 'Rendez-vous confirmé avec succès.');
+        } catch (\Exception $e) {
+            return redirect('/details/' . $request->client_id)->with('error', 'Une erreur est survenue : ' . $e->getMessage());
+        }
+    }
+
+
 }

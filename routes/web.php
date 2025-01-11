@@ -28,3 +28,6 @@ Route::get("/confirmé" , [DeskController::class , 'confirmé'])->middleware( [A
 Route::get("/refusé" , [DeskController::class , 'refusé'])->middleware( [Authmidlleware::class]);
 Route::post('/add' , [DeskController::class , 'add']);
 Route::get('/details/{id}' , [DeskController::class , 'details'])->middleware([Authmidlleware::class]);
+
+Route::get('/refuspost/{id}' , [DeskController::class , 'refuspost']);
+Route::post('/appointmentspost' , [DeskController::class , 'appointmentspost']);
