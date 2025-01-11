@@ -20,7 +20,7 @@
                                 Rendez-vous</span></a></li>
                     <li><a class="dropdown-item" href="/ajouter"><i
                                 class="bi bi-file-earmark-plus-fill"></i><span>Ajouter Client</span></a></li>
-                    <li><a class="dropdown-item" href="updatepassword"><i class="fa-solid fa-pen-nib"></i><span>Changer
+                    <li><a class="dropdown-item" href="/updatepassword"><i class="fa-solid fa-pen-nib"></i><span>Changer
                                 le mot de passe</span></a></li>
                     <li><a class="dropdown-item logout" href="/logout"><i
                                 class="bi bi-box-arrow-left"></i><span>Déconnexion</span></a></li>
