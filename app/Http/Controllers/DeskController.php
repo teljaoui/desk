@@ -73,12 +73,20 @@ class DeskController extends Controller
     public function confirmé()
     {
         $clients = Client::where("statut", "=", "confirmé")->get();
-        return view("index", compact("clients"));
+        if($clients->isEmpty()){
+            return redirect("/")->with('error' , "Vous n'avez aucun Client Confirmé");
+        }else{
+            return view("index", compact("clients"));
+        }
     }
     public function refusé()
     {
         $clients = Client::where("statut", "=", "refusé")->get();
-        return view("index", compact("clients"));
+        if($clients->isEmpty()){
+            return redirect("/")->with('error' , "Vous n'avez aucun Client Refusé");
+        }else{
+            return view("index", compact("clients"));
+        }
     }
 
     public function add(Request $request)
@@ -184,6 +192,10 @@ class DeskController extends Controller
     public function appointments()
     {
         $appointments = Appointment::with("client")->orderBy("date")->get();
-        return view('appointments', compact('appointments'));
+        if($appointments->isEmpty()){
+            return redirect('/')->with('error' , "Vous n'avez aucun rendez-vous pour le moment.");
+        }else{
+            return view('appointments', compact('appointments'));
+        }
     }
 }

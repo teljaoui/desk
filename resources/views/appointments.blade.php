@@ -45,7 +45,7 @@
                                 <tr>
                                     <td>{{ $appointment->date }}</td>
                                     <td class="phonetable">{{ $appointment->time }}</td>
-                                    <td>{{$appointment->client->name}}</td>
+                                    <td>{{ $appointment->client->name }}</td>
                                     <td><a href="details/{{ $appointment->client_id }}"
                                             class="btn btn-info border-0 fw-bold text-white">Détails</a></td>
                                 </tr>
