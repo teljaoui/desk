@@ -29,7 +29,7 @@
                 @endif
             </div>
             <div class="today">
-                <h6 class="title">Tout les clients</h6>
+                <h6 class="title">Liste des Rendez-vous</h6>
                 <div class="table-responsive dataview">
                     <table class="table datatable ">
                         <thead>

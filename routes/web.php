@@ -33,4 +33,4 @@ Route::get('/refuspost/{id}' , [DeskController::class , 'refuspost']);
 Route::post('/appointmentspost' , [DeskController::class , 'appointmentspost']);
 Route::post('/updateinfoclient', [DeskController::class, 'updateinfoclient'])->name('updateinfoclient');
 Route::post('/updateappointments' , [DeskController::class , 'updateappointments'])->name('updateappointments');
-Route::get('/appointments' , [DeskController::class , 'appointments']);
+Route::get('/appointments' , [DeskController::class , 'appointments'])->middleware([Authmidlleware::class]);
