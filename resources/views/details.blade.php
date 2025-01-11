@@ -30,12 +30,14 @@
                     @endif
                 </div>
                 <div>
+                    @if ($client->statut !== "refusé")
                     <ul>
                         <button class="btn btn-success hiddenform" onclick="showform()"><i
                                 class="fa-solid fa-user-pen"></i></button>
                         <button class="btn btn-warning showform" onclick="hiddenform()"><i
                                 class="fa-solid fa-circle-xmark"></i></button>
                     </ul>
+                    @endif
                     <form action="{{ route('updateinfoclient') }}" method="post">
                         @csrf
                         <input type="hidden" name="client_id" value="{{ $client->id }}">
