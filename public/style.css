@@ -245,6 +245,9 @@ li {
 .showform{
     display: none;
 }
+.showformR{
+    display: none;
+}
 @media (max-width:770px) {}
 
 @media (max-width:641px) {

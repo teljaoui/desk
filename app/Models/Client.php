@@ -18,7 +18,8 @@ class Client extends Model
         'location',
         'statut'
     ];
-    public function Appointment(){
-        return  $this->hasMany(Appointment::class);
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
     }
 }

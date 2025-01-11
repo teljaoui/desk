@@ -135,8 +135,61 @@
                             </div>
                         </form>
                     </div>
+                @elseif($client->statut == 'refusé')
+                    <div class="text-center">
+                        <p>Aucun rendez-vous trouvé pour ce client.</p>
+                    </div>
+                @else
+                    <div class="text-center my-2">
+                        <p>Rendez-vous avec le Client</p>
+                    </div>
+                    <ul>
+                        <button class="btn btn-success hiddenformR" onclick="showformR()"><i
+                                class="fa-solid fa-user-pen"></i></button>
+                        <button class="btn btn-warning showformR" onclick="hiddenformR()"><i
+                                class="fa-solid fa-circle-xmark"></i></button>
+                    </ul>
+                    <form action="{{ route('updateappointments') }}" method="post">
+                        @csrf
+                        <ul>
+                            @foreach ($client->appointments as $appointment)
+                                <input type="hidden" name="id" value="{{ $appointment->id }}">
+                                <input type="hidden" name="client_id" value="{{ $appointment->client_id }}">
+                                <div>
+                                    <li>
+                                        <span>Date:</span>
+                                        <div>
+                                            <p class="hiddenformR">{{ $appointment->date }}</p>
+                                            <input type="date" class="form-control showformR" name="date"
+                                                value="{{ $appointment->date }}" required>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Heure:</span>
+                                        <div>
+                                            <p class="hiddenformR">{{ $appointment->time }}</p>
+                                            <input type="time" class="form-control showformR" name="time"
+                                                value="{{ $appointment->time }}" required>
+                                        </div>
+                                    </li>
+                                </div>
+                                <div>
+                                    <li>
+                                        <span>Commentaire:</span>
+                                        <div>
+                                            <p class="hiddenformR">{{ $appointment->Commentaire }}</p>
+                                            <textarea name="Commentaire" id="" cols="30" rows="3" class="form-control showformR">{{ $appointment->Commentaire }}</textarea>
+                                        </div>
+                                    </li>
+                                </div>
+                            @endforeach
+                        </ul>
+                        <div class="d-flex justify-content-center my-3">
+                            <a href="/refuspost/{{ $client->id }}" class="submit bg-danger refus showformR">Refusé</a>
+                            <button type="submit" class="submit showformR">Update</button>
+                        </div>
+                    </form>
                 @endif
-
             </div>
         </div>
     </section>

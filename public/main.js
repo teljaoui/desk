@@ -20,3 +20,21 @@ function hiddenform() {
         })
     });
 }
+
+
+function showformR() {
+    document.querySelectorAll('.showformR').forEach((element) => {
+        element.style.display = 'block';
+        document.querySelectorAll('.hiddenformR').forEach((e)=>{
+            e.style.display = 'none'
+        })
+    });
+}
+function hiddenformR() {
+    document.querySelectorAll('.hiddenformR').forEach((element) => {
+        element.style.display = 'block';
+        document.querySelectorAll('.showformR').forEach((e)=>{
+            e.style.display = 'none'
+        })
+    });
+}

@@ -99,8 +99,7 @@ class DeskController extends Controller
 
     public function details($id)
     {
-        $client = Client::find($id);
-
+        $client = Client::with('appointments')->find($id);
         return view('details', compact('client'));
     }
 
@@ -163,6 +162,23 @@ class DeskController extends Controller
             return redirect('/details' . '/' . $request->client_id)->with('success', 'Client Modifié avec succès !');
         } else {
             return redirect('/details' . '/' . $request->client_id)->with('error', 'Error, client ne trouve pas!');
+        }
+    }
+    public function updateappointments(Request $request)
+    {
+        $appointment = Appointment::find($request->id);
+
+        if ($appointment) {
+            $appointment->update(
+                [
+                    'date' => $request->date,
+                    'time' => $request->time,
+                    'Commentaire' => $request->Commentaire
+                ]
+            );
+            return redirect('/details' . '/' . $request->client_id)->with('success', 'Rendez-vous Modifié avec succès !');
+        } else {
+            return redirect('/details' . '/' . $request->client_id)->with('success', 'Error');
         }
     }
 

@@ -15,7 +15,8 @@ class Appointment extends Model
         'Commentaire',
         'client_id'
     ];
-    public function Client(){
+    public function client()
+    {
         return $this->belongsTo(Client::class);
     }
 }
