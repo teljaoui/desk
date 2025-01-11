@@ -66,8 +66,17 @@ class DeskController extends Controller
     }
     public function index()
     {
-        $clients = Client::all();
+        $clients = Client::where("statut", "=", "Non Traité")->get();
         return view('index', compact('clients'));
+    }
+    public function confirmé()
+    {
+        $clients = Client::where("statut", "=", "confirmé")->get();
+        return view("index", compact("clients"));
+    }
+    public function refusé(){
+        $clients = Client::where("statut", "=", "refusé")->get();
+        return view("index", compact("clients"));
     }
 
     public function add(Request $request)
@@ -79,11 +88,11 @@ class DeskController extends Controller
                 'last_name' => $request->last_name,
                 'phone_number' => $request->phone_number,
                 'type' => $request->type,
-                'location' => $request->location
+                'location' => $request->location,
+                'statut' => 'Non Traité'
             ]
         );
         return redirect('/ajouter')->with('success', 'Client Ajouter avec succès !');
-
     }
 
     public function details($id)

@@ -23,63 +23,65 @@
                         <div>
                             <li>
                                 <span>Nom du Société:</span>
-                                <p>{{$client->name}}</p>
+                                <p>{{ $client->name }}</p>
                             </li>
                             <li>
                                 <span>
                                     Type du Société:</span>
-                                <p>{{$client->type}}</p>
+                                <p>{{ $client->type }}</p>
                             </li>
                             <li>
                                 <span>Prénom:</span>
-                                <p>{{$client->first_name}}</p>
+                                <p>{{ $client->first_name }}</p>
                             </li>
                         </div>
                         <div>
                             <li>
                                 <span>Nom:</span>
-                                <p>{{$client->last_name}}</p>
+                                <p>{{ $client->last_name }}</p>
                             </li>
                             <li>
                                 <span>Numéro de Téléphone:</span>
-                                <p><a href="tel:{{$client->phone_number}}">{{$client->phone_number}}</a></p>
+                                <p><a href="tel:{{ $client->phone_number }}">{{ $client->phone_number }}</a></p>
                             </li>
                             <li>
-                                <span>Statu:</span>
-                                <p>Traité</p>
+                                <span>État:</span>
+                                <p>{{ $client->statut }}</p>
                             </li>
                         </div>
                     </ul>
                 </div>
                 <div class="my-2">
-                    <iframe
-                        src="{{$client->location}}"
-                        width="100%" height="200" style="border:0; margin-top:20px;" allowfullscreen=""
-                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="{{ $client->location }}" width="100%" height="200"
+                        style="border:0; margin-top:20px;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-                <div class="rendez-vous my-3" id="rendez-vous">
-                    <h6 class="title">Rendez-vous</h6>
-                    <form action="/admin/updatePost" method="POST">
-                        @csrf
-                        <div class="item">
-                            <div class="form-group">
-                                <label for="">Selectioné une date:</label>
-                                <input type="date" name="password" class="form-control" id="" required>
+                @if ($client->statut == 'Non Traité')
+                    <div class="rendez-vous my-3" id="rendez-vous">
+                        <h6 class="title">Rendez-vous</h6>
+                        <form action="/admin/updatePost" method="POST">
+                            @csrf
+                            <div class="item">
+                                <div class="form-group">
+                                    <label for="">Selectioné une date:</label>
+                                    <input type="date" name="password" class="form-control" id="" required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="item">
-                            <div class="form-group">
-                                <label for="">Selectioné une heure:</label>
-                                <input type="time" name="password_confirme" class="form-control" id=""
-                                    required>
+                            <div class="item">
+                                <div class="form-group">
+                                    <label for="">Selectioné une heure:</label>
+                                    <input type="time" name="password_confirme" class="form-control" id=""
+                                        required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="d-flex justify-content-center my-3">
-                            <input type="submit" value="Ajouter" class="submit">
-                            <a href="" class="submit bg-danger">Refusé</a>
-                        </div>
-                    </form>
-                </div>
+                            <div class="d-flex justify-content-center my-3">
+                                <input type="submit" value="Ajouter" class="submit">
+                                <a href="" class="submit bg-danger">Refusé</a>
+                            </div>
+                        </form>
+                    </div>
+                @endif
+
             </div>
         </div>
     </section>

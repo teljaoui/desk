@@ -24,5 +24,7 @@ Route::post('/loginpost' , [DeskController::class, 'loginpost']);
 Route::get('/logout' , [DeskController::class , 'logout']);
 Route::post('/updatePost' , [DeskController::class , 'updatePost']);
 Route::get('/', [DeskController::class, 'index'])->middleware([Authmidlleware::class]);
+Route::get("/confirmé" , [DeskController::class , 'confirmé'])->middleware( [Authmidlleware::class]);
+Route::get("/refusé" , [DeskController::class , 'refusé'])->middleware( [Authmidlleware::class]);
 Route::post('/add' , [DeskController::class , 'add']);
 Route::get('/details/{id}' , [DeskController::class , 'details'])->middleware([Authmidlleware::class]);
