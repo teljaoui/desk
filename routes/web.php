@@ -16,7 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/ajouter', 'Ajouter')->middleware([Authmidlleware::class]);
-Route::view('/adminmanager', 'adminmanager')->middleware([Authmidlleware::class]);
+Route::get('/adminmanager', [DeskController::class , 'adminmanager'])->middleware([Authmidlleware::class]);
+Route::post('/updatepassword' ,  [DeskController::class , 'updatepassword']);
+Route::get('/updatepasswordreset', [DeskController::class , "updatepasswordreset"])->middleware([Authmidlleware::class]);
+Route::get('/deleteadmin/{id}' , [DeskController::class , 'deleteadmin']);
+Route::post('/ajouteradmin' , [DeskController::class , 'ajouteradmin']);
+Route::get('/addadminreset', [DeskController::class , 'addadminreset']);
+Route::post('/addadminPost' , [DeskController::class , 'addadminPost']);
 
 
 Route::get('/login', [DeskController::class, 'login']);

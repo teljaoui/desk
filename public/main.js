@@ -7,7 +7,7 @@ document.querySelector('.refus').addEventListener("click", function (event) {
 function showform() {
     document.querySelectorAll('.showform').forEach((element) => {
         element.style.display = 'block';
-        document.querySelectorAll('.hiddenform').forEach((e)=>{
+        document.querySelectorAll('.hiddenform').forEach((e) => {
             e.style.display = 'none'
         })
     });
@@ -15,7 +15,7 @@ function showform() {
 function hiddenform() {
     document.querySelectorAll('.hiddenform').forEach((element) => {
         element.style.display = 'block';
-        document.querySelectorAll('.showform').forEach((e)=>{
+        document.querySelectorAll('.showform').forEach((e) => {
             e.style.display = 'none'
         })
     });
@@ -25,7 +25,7 @@ function hiddenform() {
 function showformR() {
     document.querySelectorAll('.showformR').forEach((element) => {
         element.style.display = 'block';
-        document.querySelectorAll('.hiddenformR').forEach((e)=>{
+        document.querySelectorAll('.hiddenformR').forEach((e) => {
             e.style.display = 'none'
         })
     });
@@ -33,7 +33,7 @@ function showformR() {
 function hiddenformR() {
     document.querySelectorAll('.hiddenformR').forEach((element) => {
         element.style.display = 'block';
-        document.querySelectorAll('.showformR').forEach((e)=>{
+        document.querySelectorAll('.showformR').forEach((e) => {
             e.style.display = 'none'
         })
     });

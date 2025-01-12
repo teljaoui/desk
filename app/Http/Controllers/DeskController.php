@@ -47,24 +47,99 @@ class DeskController extends Controller
         }
         return redirect('/login');
     }
+    public function adminmanager()
+    {
+        $admins = User::all();
+        return view("adminmanager", compact("admins"));
+    }
+    public function updatepassword(Request $request)
+    {
+        $admin = User::find($request->id);
+
+        if ($admin) {
+            $request->session()->put("adminup", $admin->email);
+            return redirect("/adminmanager");
+        } else {
+            return redirect("/adminup")->with('error', 'Admin non trouvé');
+        }
+    }
+    public function updatepasswordreset()
+    {
+        if (Session::has("adminup")) {
+            Session::pull('adminup');
+            return redirect('/adminmanager');
+        }
+    }
+
     public function updatePost(Request $request)
     {
-        $user = User::where("email", "=", "admin")->first();
+        $email = $request->session()->get('adminup');
+        if (!$email) {
+            return redirect('/adminmanager')->with('error', 'Session invalide. Veuillez réessayer.');
+        }
+        $user = User::where('email', $email)->first();
 
-        $password = $request->password;
-        $password_confirme = $request->password_confirme;
-
-        if ($password === $password_confirme) {
-            $user->update(
+        if ($user) {
+            if ($request->password === $request->password_confirme) {
+                $user->update([
+                    'password' => Hash::make($request->password),
+                ]);
+                session()->flash('success', 'Mot de passe modifié avec succès.');
+                if (Session::has('adminup')) {
+                    Session::pull("adminup");
+                    return redirect('/adminmanager');
+                }
+            } else {
+                session()->flash('error', 'Les mots de passe ne correspondent pas.');
+            }
+        } else {
+            session()->flash('error', 'Utilisateur non trouvé.');
+        }
+        return redirect("/adminmanager");
+    }
+    public function deleteadmin($id)
+    {
+        $admin = User::find($id);
+        if ($admin->email == "admin") {
+            return redirect("/adminmanager")->with("error", "Interdi de supprimé se admin");
+        } elseif ($admin) {
+            $admin->delete();
+            return redirect("/adminmanager")->with("success", "Admin Supprimé avec success");
+        } else {
+            return redirect("/adminmanager")->with("error", "Admin Intouvable");
+        }
+    }
+    public function ajouteradmin(Request $request)
+    {
+        $request->session()->put("adminadd", "add");
+        return redirect("/adminmanager");
+    }
+    public function addadminreset()
+    {
+        if (Session::has('adminadd')) {
+            Session::pull("adminadd");
+            return redirect('/adminmanager');
+        }
+    }
+    public function addadminPost(Request $request)
+    {
+        if ($request->password === $request->password_confirme) {
+            User::create(
                 [
+                    'name' => $request->name,
+                    'email' => $request->email,
                     'password' => Hash::make($request->password)
                 ]
             );
-            session()->flash('success', 'Mot de passe modifié avec succès.');
+            session()->flash('success', 'Admin Ajouter avec succès.');
+            if (Session::has('adminadd')) {
+                Session::pull("adminadd");
+                return redirect('/adminmanager');
+            }
         } else {
             session()->flash('error', 'Les mots de passe ne correspondent pas.');
         }
-        return redirect('updatepassword');
+        return redirect("/adminmanager");
     }
     public function index()
     {
@@ -78,7 +153,7 @@ class DeskController extends Controller
         if ($clients->isEmpty()) {
             return redirect("/")->with('error', "Vous n'avez aucun Client Confirmé");
         } else {
-            return view("index", compact("clients" , "statut"));
+            return view("index", compact("clients", "statut"));
         }
     }
     public function refusé()
@@ -88,7 +163,7 @@ class DeskController extends Controller
         if ($clients->isEmpty()) {
             return redirect("/")->with('error', "Vous n'avez aucun Client Refusé");
         } else {
-            return view("index", compact("clients" , "statut"));
+            return view("index", compact("clients", "statut"));
         }
     }
 
@@ -103,7 +178,7 @@ class DeskController extends Controller
             'location' => [
                 'required',
                 'string',
-                'regex:/^[^\s]+$/' 
+                'regex:/^[^\s]+$/'
             ],
         ], [
             'location.regex' => 'La localisation ne doit contenir aucun espace.',
