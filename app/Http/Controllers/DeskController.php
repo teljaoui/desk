@@ -259,6 +259,7 @@ class DeskController extends Controller
                     'last_name' => $request->last_name,
                     'phone_number' => $request->phone_number,
                     'type' => $request->type,
+                    'location' => $request->location
                 ]
             );
             return redirect('/details' . '/' . $request->client_id)->with('success', 'Client Modifié avec succès !');

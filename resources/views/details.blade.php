@@ -30,13 +30,13 @@
                     @endif
                 </div>
                 <div>
-                    @if ($client->statut !== "refusé")
-                    <ul>
-                        <button class="btn btn-success hiddenform" onclick="showform()"><i
-                                class="fa-solid fa-user-pen"></i></button>
-                        <button class="btn btn-warning showform" onclick="hiddenform()"><i
-                                class="fa-solid fa-circle-xmark"></i></button>
-                    </ul>
+                    @if ($client->statut !== 'refusé')
+                        <ul>
+                            <button class="btn btn-success hiddenform" onclick="showform()"><i
+                                    class="fa-solid fa-user-pen"></i></button>
+                            <button class="btn btn-warning showform" onclick="hiddenform()"><i
+                                    class="fa-solid fa-circle-xmark"></i></button>
+                        </ul>
                     @endif
                     <form action="{{ route('updateinfoclient') }}" method="post">
                         @csrf
@@ -67,6 +67,13 @@
                                             value="{{ $client->last_name }}" required>
 
                                     </div>
+                                </li>
+                                <li>
+                                    <span class="showform">location</span>
+                                    <div>
+                                    <input type="text" class="form-control showform" name="location"
+                                    value="{{ $client->location }}" required>
+                                </div>
                                 </li>
                             </div>
                             <div>
@@ -103,10 +110,15 @@
                     </form>
                 </div>
                 <div class="my-2">
-                    <iframe src="{{ $client->location }}" width="100%" height="200"
-                        style="border:0; margin-top:20px;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    @if (filter_var($client->location, FILTER_VALIDATE_URL))
+                        <iframe src="{{ $client->location }}" width="100%" height="200"
+                                style="border:0; margin-top:20px;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    @else
+                        <p class="text-danger text-center">La localisation n'est pas valide ou introuvable.</p>
+                    @endif
                 </div>
+                
                 @if ($client->statut == 'Non Traité')
                     <div class="rendez-vous my-3" id="rendez-vous">
                         <h6 class="title">Rendez-vous</h6>
@@ -187,7 +199,8 @@
                             @endforeach
                         </ul>
                         <div class="d-flex justify-content-center my-3">
-                            <a href="/refuspost/{{ $client->id }}" class="submit bg-danger refus showformR">Refusé</a>
+                            <a href="/refuspost/{{ $client->id }}"
+                                class="submit bg-danger refus showformR">Refusé</a>
                             <button type="submit" class="submit showformR">Update</button>
                         </div>
                     </form>
