@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 my-2">
                                     <label for="" class="form-label">Téléphone: </label>
-                                    <input type="text" class="form-control" name="phone_number" required>
+                                    <input type="number" class="form-control" name="phone_number" required>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 my-2">
                                     <label for="" class="form-label">Type du Société: </label>
@@ -57,6 +57,9 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 my-2">
                                     <label for="" class="form-label">Location: </label>
                                     <input type="text" class="form-control" name="location" required>
+                                    @error('location')
+                                        <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

@@ -18,11 +18,12 @@ class DeskController extends Controller
 
     function loginPost(Request $request)
     {
-        $user = User::where('email', '=', 'admin')->first();
+        $user = User::where('email', '=', $request->email)->first();
 
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 $request->session()->put('loginId', $user->id);
+                $request->session()->put('admin', $user->email);
                 return redirect('/')->with("success", "Bienvenue de retour Admin, la connexion a réussi.");
             } else {
                 return back()->withErrors(
@@ -73,32 +74,48 @@ class DeskController extends Controller
     public function confirmé()
     {
         $clients = Client::where("statut", "=", "confirmé")->get();
-        if($clients->isEmpty()){
-            return redirect("/")->with('error' , "Vous n'avez aucun Client Confirmé");
-        }else{
-            return view("index", compact("clients"));
+        $statut = "confirmé";
+        if ($clients->isEmpty()) {
+            return redirect("/")->with('error', "Vous n'avez aucun Client Confirmé");
+        } else {
+            return view("index", compact("clients" , "statut"));
         }
     }
     public function refusé()
     {
         $clients = Client::where("statut", "=", "refusé")->get();
-        if($clients->isEmpty()){
-            return redirect("/")->with('error' , "Vous n'avez aucun Client Refusé");
-        }else{
-            return view("index", compact("clients"));
+        $statut = "refusé";
+        if ($clients->isEmpty()) {
+            return redirect("/")->with('error', "Vous n'avez aucun Client Refusé");
+        } else {
+            return view("index", compact("clients" , "statut"));
         }
     }
 
     public function add(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:20',
+            'type' => 'required|string|max:50',
+            'location' => [
+                'required',
+                'string',
+                'regex:/^[^\s]+$/' 
+            ],
+        ], [
+            'location.regex' => 'La localisation ne doit contenir aucun espace.',
+        ]);
         Client::create(
             [
-                'name' => $request->name,
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'phone_number' => $request->phone_number,
-                'type' => $request->type,
-                'location' => $request->location,
+                'name' => $validatedData['name'],
+                'first_name' => $validatedData['first_name'],
+                'last_name' => $validatedData['last_name'],
+                'phone_number' => $validatedData['phone_number'],
+                'type' => $validatedData['type'],
+                'location' => $validatedData['location'],
                 'statut' => 'Non Traité'
             ]
         );
@@ -115,18 +132,20 @@ class DeskController extends Controller
     public function refuspost($id)
     {
         $client = Client::find($id);
+        $appointment = Appointment::where("client_id", $id)->first();
 
-        if ($client) {
-            $client->update(
-                [
-                    'statut' => 'refusé'
-                ]
-            );
+        if ($client && $appointment) {
+            $client->update(['statut' => 'refusé']);
+            $appointment->delete();
+            return redirect('/details' . '/' . $id)->with('success', 'Rendez-vous supprimé avec succès !');
+        } elseif ($client) {
+            $client->update(['statut' => 'refusé']);
             return redirect('/details' . '/' . $id)->with('success', 'Client Modifié Statut avec succès !');
         } else {
-            return redirect('/details' . '/' . $id)->with('error', 'Error, client ne trouve pas!');
+            return redirect('/details' . '/' . $id)->with('error', 'Erreur, client non trouvé !');
         }
     }
+
     public function appointmentspost(Request $request)
     {
         $client = Client::find($request->client_id);
@@ -192,9 +211,9 @@ class DeskController extends Controller
     public function appointments()
     {
         $appointments = Appointment::with("client")->orderBy("date")->get();
-        if($appointments->isEmpty()){
-            return redirect('/')->with('error' , "Vous n'avez aucun rendez-vous pour le moment.");
-        }else{
+        if ($appointments->isEmpty()) {
+            return redirect('/')->with('error', "Vous n'avez aucun rendez-vous pour le moment.");
+        } else {
             return view('appointments', compact('appointments'));
         }
     }

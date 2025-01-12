@@ -29,7 +29,12 @@
                 @endif
             </div>
             <div class="today">
-                <h6 class="title">Tout les clients</h6>
+                <h6 class="title">
+                    Tout les clients 
+                    @isset($statut)
+                        {{ $statut }}
+                    @endisset
+                </h6>
                 <div class="table-responsive dataview">
                     <table class="table datatable ">
                         <thead>
@@ -50,7 +55,7 @@
                                     <td class="phonetable">{{ $client->type }}</td>
                                     <td>{{ $client->last_name }}</td>
                                     <td class="phonetable">{{ $client->first_name }}</td>
-                                    <td class="phonetable">{{$client->statut}}</td>
+                                    <td class="phonetable">{{ $client->statut }}</td>
                                     <td>{{ $client->phone_number }}</td>
                                     <td><a href="details/{{ $client->id }}"
                                             class="btn btn-info border-0 fw-bold text-white">Détails</a></td>

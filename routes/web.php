@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/ajouter', 'Ajouter')->middleware([Authmidlleware::class]);
-Route::view('/updatepassword', 'updatepassword')->middleware([Authmidlleware::class]);
+Route::view('/adminmanager', 'adminmanager')->middleware([Authmidlleware::class]);
 
 
 Route::get('/login', [DeskController::class, 'login']);
