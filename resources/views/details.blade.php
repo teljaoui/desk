@@ -32,10 +32,14 @@
                 <div>
                     @if ($client->statut !== 'refusé')
                         <ul>
-                            <button class="btn btn-success hiddenform" onclick="showform()"><i
+                            <button class="btn btn-info hiddenform" onclick="showform()"><i
                                     class="fa-solid fa-user-pen"></i></button>
                             <button class="btn btn-warning showform" onclick="hiddenform()"><i
                                     class="fa-solid fa-circle-xmark"></i></button>
+                            @if ($client->statut == 'confirmé' && session('admin') == 'admin')
+                                <a href="/clientvalidé/{{ $client->id }}" class="btn btn-success mx-2 validé"><i
+                                        class="fa-solid fa-check"></i></a>
+                            @endif
                         </ul>
                     @endif
                     <form action="{{ route('updateinfoclient') }}" method="post">
@@ -71,9 +75,9 @@
                                 <li>
                                     <span class="showform">location</span>
                                     <div>
-                                    <input type="text" class="form-control showform" name="location"
-                                    value="{{ $client->location }}" required>
-                                </div>
+                                        <input type="text" class="form-control showform" name="location"
+                                            value="{{ $client->location }}" required>
+                                    </div>
                                 </li>
                             </div>
                             <div>
@@ -112,13 +116,13 @@
                 <div class="my-2">
                     @if (filter_var($client->location, FILTER_VALIDATE_URL))
                         <iframe src="{{ $client->location }}" width="100%" height="200"
-                                style="border:0; margin-top:20px;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            style="border:0; margin-top:20px;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     @else
                         <p class="text-danger text-center">La localisation n'est pas valide ou introuvable.</p>
                     @endif
                 </div>
-                
+
                 @if ($client->statut == 'Non Traité')
                     <div class="rendez-vous my-3" id="rendez-vous">
                         <h6 class="title">Rendez-vous</h6>
@@ -153,13 +157,13 @@
                     <div class="text-center">
                         <p>Aucun rendez-vous trouvé pour ce client.</p>
                     </div>
-                @else
+                @elseif($client->statut == 'confirmé')
                     <div class="text-center my-2">
                         <p>Rendez-vous avec le Client</p>
                     </div>
                     <ul>
-                        <button class="btn btn-success hiddenformR" onclick="showformR()"><i
-                                class="fa-solid fa-user-pen"></i></button>
+                        <button class="btn btn-info hiddenformR" onclick="showformR()"><i
+                                class="fa-solid fa-pen-to-square"></i></button>
                         <button class="btn btn-warning showformR" onclick="hiddenformR()"><i
                                 class="fa-solid fa-circle-xmark"></i></button>
                     </ul>
@@ -204,6 +208,10 @@
                             <button type="submit" class="submit showformR">Update</button>
                         </div>
                     </form>
+                @else
+                    <div class="text-center">
+                        <p>Client Validé.</p>
+                    </div>
                 @endif
             </div>
         </div>

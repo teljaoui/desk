@@ -16,10 +16,15 @@
                                 class="fa-solid fa-list-check"></i><span>Rendez-vous confirmé</span></a></li>
                     <li><a class="dropdown-item" href="/refusé"><i
                                 class="fa-solid fa-circle-xmark"></i><span>Rendez-vous refusé</span></a></li>
+                    <li>
+                        <a class="dropdown-item" href="/validé">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Rendez-vous Validé</span>
+                        </a>
+                    </li>
                     <li><a class="dropdown-item" href="/appointments"><i class="fa-solid fa-file-lines"></i><span>Liste
                                 des
                                 Rendez-vous</span></a></li>
-
                     @if (session('admin') == 'admin')
                         <li>
                             <a class="dropdown-item" href="/ajouter">

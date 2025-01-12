@@ -4,6 +4,12 @@ document.querySelector('.refus').addEventListener("click", function (event) {
     }
 });
 
+document.querySelector('.validé').addEventListener("click", function (event) {
+    if (!confirm("Êtes-vous sûr que ce client a Validé ?")) {
+        event.preventDefault();
+    }
+});
+
 function showform() {
     document.querySelectorAll('.showform').forEach((element) => {
         element.style.display = 'block';
@@ -12,6 +18,8 @@ function showform() {
         })
     });
 }
+
+
 function hiddenform() {
     document.querySelectorAll('.hiddenform').forEach((element) => {
         element.style.display = 'block';

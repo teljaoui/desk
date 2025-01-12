@@ -32,6 +32,8 @@ Route::post('/updatePost' , [DeskController::class , 'updatePost']);
 Route::get('/', [DeskController::class, 'index'])->middleware([Authmidlleware::class]);
 Route::get("/confirmé" , [DeskController::class , 'confirmé'])->middleware( [Authmidlleware::class]);
 Route::get("/refusé" , [DeskController::class , 'refusé'])->middleware( [Authmidlleware::class]);
+Route::get('/validé' , [DeskController::class , 'validé'])->middleware([Authmidlleware::class]);
+Route::get('/clientvalidé/{id}' , [DeskController::class , 'clientvalidé']);
 Route::post('/add' , [DeskController::class , 'add']);
 Route::get('/details/{id}' , [DeskController::class , 'details'])->middleware([Authmidlleware::class]);
 
@@ -40,3 +42,4 @@ Route::post('/appointmentspost' , [DeskController::class , 'appointmentspost']);
 Route::post('/updateinfoclient', [DeskController::class, 'updateinfoclient'])->name('updateinfoclient');
 Route::post('/updateappointments' , [DeskController::class , 'updateappointments'])->name('updateappointments');
 Route::get('/appointments' , [DeskController::class , 'appointments'])->middleware([Authmidlleware::class]);
+Route::post('/searchdate' , [DeskController::class , 'searchdate']);

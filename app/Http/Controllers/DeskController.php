@@ -58,6 +58,9 @@ class DeskController extends Controller
 
         if ($admin) {
             $request->session()->put("adminup", $admin->email);
+            if (Session::has('adminadd')) {
+                Session::pull('adminadd');
+            }
             return redirect("/adminmanager");
         } else {
             return redirect("/adminup")->with('error', 'Admin non trouvé');
@@ -112,6 +115,9 @@ class DeskController extends Controller
     public function ajouteradmin(Request $request)
     {
         $request->session()->put("adminadd", "add");
+        if (Session::has('adminup')) {
+            Session::pull('adminup');
+        }
         return redirect("/adminmanager");
     }
     public function addadminreset()
@@ -166,7 +172,29 @@ class DeskController extends Controller
             return view("index", compact("clients", "statut"));
         }
     }
+    public function validé()
+    {
+        $clients = Client::where("statut", "=", "validé")->get();
+        $statut = "validé";
+        if ($clients->isEmpty()) {
+            return redirect("/")->with('error', "Vous n'avez aucun Client Validé");
+        } else {
+            return view("index", compact("clients", "statut"));
+        }
+    }
+    public function clientvalidé($id)
+    {
+        $client = Client::find($id);
+        $appointment = Appointment::where("client_id", $id)->first();
 
+        if ($client && $appointment) {
+            $client->update(['statut' => 'validé']);
+            $appointment->delete();
+            return redirect('/details' . '/' . $id)->with('success', 'Rendez-vous Validé avec succès !');
+        } else {
+            return redirect('/details' . '/' . $id)->with('error', 'Erreur, client non trouvé !');
+        }
+    }
     public function add(Request $request)
     {
         $validatedData = $request->validate([
@@ -293,4 +321,22 @@ class DeskController extends Controller
             return view('appointments', compact('appointments'));
         }
     }
+    public function searchdate(Request $request)
+    {
+        $request->validate([
+            'date' => 'required|date',
+        ]);
+
+        $appointments = Appointment::whereDate('date', '>=', $request->date)
+            ->orderBy('date')
+            ->get();
+
+        if ($appointments->isEmpty()) {
+            return redirect('/')
+                ->with('error', "Aucun rendez-vous trouvé pour la date sélectionnée.");
+        }
+
+        return view('appointments', compact('appointments'));
+    }
+
 }

@@ -30,7 +30,16 @@
             </div>
             <div class="today">
                 <h6 class="title">Liste des Rendez-vous</h6>
-                <div class="table-responsive dataview">
+                <div>
+                    <form action="/searchdate" method="post">
+                        @csrf
+                        <div class="form-group">
+                            <input type="date" name="date" class="form-control" id="" required>
+                            <input type="submit" class="btn btn-success border-0" value="Recherche">
+                        </div>
+                    </form>
+                </div>
+                <div class="table-responsive dataview mt-4">
                     <table class="table datatable ">
                         <thead>
                             <tr>
