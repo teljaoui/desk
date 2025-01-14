@@ -29,7 +29,7 @@
                         </div>
                     @endif
                 </div>
-                <form action="add" method="POST">
+                <form action="/add" method="POST">
                     @csrf
                     <div class="">
                         <div class="form-group">

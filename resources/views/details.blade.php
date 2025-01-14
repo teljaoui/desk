@@ -148,8 +148,8 @@
                             </div>
                             <div class="d-flex justify-content-center my-3">
                                 <input type="hidden" name="client_id" value="{{ $client->id }}">
-                                <input type="submit" value="Ajouter" class="submit">
                                 <a href="/refuspost/{{ $client->id }}" class="submit bg-danger refus">Refusé</a>
+                                <input type="submit" value="Ajouter" class="submit">
                             </div>
                         </form>
                     </div>
@@ -203,9 +203,9 @@
                             @endforeach
                         </ul>
                         <div class="d-flex justify-content-center my-3">
+                            <button type="submit" class="submit showformR">Update</button>
                             <a href="/refuspost/{{ $client->id }}"
                                 class="submit bg-danger refus showformR">Refusé</a>
-                            <button type="submit" class="submit showformR">Update</button>
                         </div>
                     </form>
                 @else
