@@ -30,7 +30,7 @@
             </div>
             <div class="today">
                 <h6 class="title">
-                    Tout les clients 
+                    Tout les clients
                     @isset($statut)
                         {{ $statut }}
                     @endisset
@@ -39,42 +39,52 @@
                     <table class="table datatable ">
                         <thead>
                             <tr>
-                                <th>Société</th>
-                                <th class="phonetable">type</th>
-                                <th>Nom</th>
-                                <th class="phonetable">Prénom</th>
-                                <th class="phonetable">Statut</th>
-                                <th>Téléphone</th>
-                                <th>Action</th>
+                                @isset($statut)
+                                @if ($statut == 'confirmé' || $statut == 'validé')
+                                    <th>code</th>
+                                @endif
+                            @endisset
+                            <th>Société</th>
+                            <th class="phonetable">type</th>
+                            <th>Nom</th>
+                            <th class="phonetable">Prénom</th>
+                            <th class="phonetable">Statut</th>
+                            <th>Téléphone</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($clients as $client)
+                            <tr>
+                                @isset($statut)
+                                    @if ($statut == 'confirmé' || $statut == 'validé')
+                                        <td>{{ $client->id }}</td>
+                                    @endif
+                                @endisset
+                                <td>{{ $client->name }}</td>
+                                <td class="phonetable">{{ $client->type }}</td>
+                                <td>{{ $client->last_name }}</td>
+                                <td class="phonetable">{{ $client->first_name }}</td>
+                                <td class="phonetable">{{ $client->statut }}</td>
+                                <td>{{ $client->phone_number }}</td>
+                                <td><a href="details/{{ $client->id }}"
+                                        class="btn btn-info border-0 fw-bold text-white">Détails</a></td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($clients as $client)
-                                <tr>
-                                    <td>{{ $client->name }}</td>
-                                    <td class="phonetable">{{ $client->type }}</td>
-                                    <td>{{ $client->last_name }}</td>
-                                    <td class="phonetable">{{ $client->first_name }}</td>
-                                    <td class="phonetable">{{ $client->statut }}</td>
-                                    <td>{{ $client->phone_number }}</td>
-                                    <td><a href="details/{{ $client->id }}"
-                                            class="btn btn-info border-0 fw-bold text-white">Détails</a></td>
-                                </tr>
-                            @endforeach
-                        </tbody>
+                        @endforeach
+                    </tbody>
 
-                    </table>
-                </div>
+                </table>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 
-    <script src="/main.js"></script>
+<script src="/main.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+</script>
 
 </body>
 

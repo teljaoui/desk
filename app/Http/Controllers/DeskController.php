@@ -332,7 +332,7 @@ class DeskController extends Controller
             ->get();
 
         if ($appointments->isEmpty()) {
-            return redirect('/')
+            return redirect('/appointments')
                 ->with('error', "Aucun rendez-vous trouvé pour la date sélectionnée.");
         }
 
