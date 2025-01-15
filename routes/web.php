@@ -25,6 +25,7 @@ Route::get('/addadminreset', [DeskController::class , 'addadminreset']);
 Route::post('/addadminPost' , [DeskController::class , 'addadminPost']);
 
 
+
 Route::get('/login', [DeskController::class, 'login']);
 Route::post('/loginpost' , [DeskController::class, 'loginpost']);
 Route::get('/logout' , [DeskController::class , 'logout']);
@@ -34,8 +35,10 @@ Route::get("/confirmé" , [DeskController::class , 'confirmé'])->middleware( [A
 Route::get("/refusé" , [DeskController::class , 'refusé'])->middleware( [Authmidlleware::class]);
 Route::get('/validé' , [DeskController::class , 'validé'])->middleware([Authmidlleware::class]);
 Route::get('/clientvalidé/{id}' , [DeskController::class , 'clientvalidé']);
+Route::get('/deleteclient/{id}' , [DeskController::class , 'deleteclient']);
 Route::post('/add' , [DeskController::class , 'add']);
 Route::get('/details/{id}' , [DeskController::class , 'details'])->middleware([Authmidlleware::class]);
+Route::get('/localisations' , [DeskController::class , 'showLocations'])->middleware([Authmidlleware::class]);
 
 Route::get('/refuspost/{id}' , [DeskController::class , 'refuspost']);
 Route::post('/appointmentspost' , [DeskController::class , 'appointmentspost']);

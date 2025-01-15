@@ -40,6 +40,10 @@
                                 <a href="/clientvalidé/{{ $client->id }}" class="btn btn-success mx-2 validé"><i
                                         class="fa-solid fa-check"></i></a>
                             @endif
+                            @if (session('admin') == 'admin')
+                                <a href="/deleteclient/{{ $client->id }}" class="btn btn-danger mx-2 delete"><i <i
+                                        class="fa-solid fa-trash-can"></i></a>
+                            @endif
                         </ul>
                     @endif
                     <form action="{{ route('updateinfoclient') }}" method="post">
@@ -220,7 +224,13 @@
 
 
     <script src="/main.js"></script>
-
+    <script>
+        document.querySelector('.delete').addEventListener("click", function(event) {
+            if (!confirm("Êtes-vous sûr de supprimer le client?")) {
+                event.preventDefault();
+            }
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>

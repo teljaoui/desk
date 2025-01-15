@@ -10,6 +10,13 @@ document.querySelector('.validé').addEventListener("click", function (event) {
     }
 });
 
+document.querySelector('.delete').addEventListener("click", function (event) {
+    if (!confirm("Êtes-vous sûr de supprimer le client?")) {
+        event.preventDefault();
+    }
+});
+
+
 function showform() {
     document.querySelectorAll('.showform').forEach((element) => {
         element.style.display = 'block';

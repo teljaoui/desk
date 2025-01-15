@@ -339,4 +339,14 @@ class DeskController extends Controller
         return view('appointments', compact('appointments'));
     }
 
+    public function deleteclient($id){
+        $client = Client::find($id);
+        if($client){
+            $client->delete();
+            return redirect('/')->with('success', "Client Supprimé avec success");
+        }else{
+            return redirect('/')->with('error', "Client Introuvable");
+        }
+    }
+
 }
